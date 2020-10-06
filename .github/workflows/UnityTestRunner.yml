@@ -11,15 +11,15 @@ jobs:
     container: docker://gableroux/unity3d:${{ matrix.unity-tag }}
     strategy:
       matrix:
-        unity-tag: [2018.4.9f1]
+        unity-tag: [2020.1.3f1]
 
     steps:
     - uses: actions/checkout@master
     - run: mkdir -p path/to/artifact
-    - run: openssl aes-256-cbc -d -in Unity_v2018.x.ulf-cipher -k ${CYPHER_KEY} >> /Unity_v2018.x.ulf
+    - run: echo ${ULF} > /Unity_v2020.x.ulf
       env:
-        CYPHER_KEY: ${{ secrets.cypherkey }}
-    - run: /opt/Unity/Editor/Unity -manualLicenseFile /Unity_v2018.x.ulf -batchmode -nographics -quit || exit 0
+        CYPHER_KEY: ${{ secrets.ulf }}
+    - run: /opt/Unity/Editor/Unity -manualLicenseFile /Unity_v2020.x.ulf -batchmode -nographics -quit || exit 0
     - run: /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile path/to/artifact/results.xml || exit 0
     - uses: actions/upload-artifact@master
       with:
