@@ -20,7 +20,10 @@ jobs:
       env:
         CYPHER_KEY: ${{ secrets.ulf }}
     - run: /opt/Unity/Editor/Unity -manualLicenseFile /Unity_v2020.x.ulf -batchmode -nographics -quit || exit 0
-    - run: /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile path/to/artifact/results.xml || exit 0
+    - run: /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runEditorTests -editorTestsResultFile path/to/artifact/results.xml -username ${USERNAME} -password ${PASSWORD} || exit 0
+      env:
+        USERNAME: ${{ secrets.username }}
+        PASSWORD: ${{ secrets.password }}
     - uses: actions/upload-artifact@master
       with:
         name: test_results
