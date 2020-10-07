@@ -16,6 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - run: mkdir -p path/to/artifact
+    - run: ls /home
     - run: echo ${ULF} > /Unity_v2020.x.ulf
       env:
         CYPHER_KEY: ${{ secrets.ulf }}
