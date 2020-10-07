@@ -16,15 +16,12 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - run: mkdir -p path/to/artifact
-    - run: mkdir -p ~/.local/share/unity3d/Unity/
-    - run: echo ${ULF} > ~/.local/share/unity3d/Unity/Unity_lic.ulf
+    - run: mkdir -p /home/runner/.local/share/unity3d/Unity/
+    - run: echo ${ULF} > /home/runner/.local/share/unity3d/Unity/Unity_lic.ulf
       env:
         ULF: ${{ secrets.ulf }}
     - run: /opt/Unity/Editor/Unity -batchmode -nographics -quit || exit 0
     - run: /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runTests -testResults path/to/artifact/results.xml || exit 0
-      env:
-        USERNAME: ${{ secrets.username }}
-        PASSWORD: ${{ secrets.password }}
     - uses: actions/upload-artifact@master
       with:
         name: test_results
