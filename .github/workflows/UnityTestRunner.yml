@@ -16,6 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - run: mkdir -p path/to/artifact
+    - run: mkdir -p ~/.local/share/unity3d/Unity/
     - run: echo ${ULF} > ~/.local/share/unity3d/Unity/Unity_lic.ulf
       env:
         ULF: ${{ secrets.ulf }}
