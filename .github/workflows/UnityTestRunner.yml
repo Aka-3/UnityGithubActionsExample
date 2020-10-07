@@ -16,11 +16,10 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - run: mkdir -p path/to/artifact
-    - run: ls /home | echo
-    - run: echo ${ULF} > /Unity_v2020.x.ulf
+    - run: echo ${ULF} > /root/.local/share/unity3d/Unity/Unity_lic.ulf
       env:
-        CYPHER_KEY: ${{ secrets.ulf }}
-    - run: /opt/Unity/Editor/Unity -manualLicenseFile /Unity_v2020.x.ulf -batchmode -nographics -quit || exit 0
+        ULF: ${{ secrets.ulf }}
+    - run: /opt/Unity/Editor/Unity -batchmode -nographics -quit || exit 0
     - run: /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runTests -testResults path/to/artifact/results.xml || exit 0
       env:
         USERNAME: ${{ secrets.username }}
